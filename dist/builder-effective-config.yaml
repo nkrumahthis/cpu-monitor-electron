@@ -1,0 +1,17 @@
+directories:
+  output: dist
+  buildResources: build
+appId: cpu-monitor-electron
+win:
+  target:
+    - nsis
+  icon: src/cpu.ico
+  requestedExecutionLevel: requireAdministrator
+nsis:
+  installerIcon: src/cpu.ico
+  uninstallerIcon: src/cpu.ico
+  uninstallDisplayName: CPU Monitor
+  license: license.txt
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+electronVersion: 10.1.5
