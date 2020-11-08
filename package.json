@@ -1,15 +1,32 @@
 {
   "name": "cpu-monitor-electron",
-  "productName": "cpu-monitor-electron",
+  "productName": "CPU Monitor",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Monitor cpu and memory usage live",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "lint": "echo \"No linting configured\"",
+    "build-installer": "electron-builder"
+  },
+  "build":{
+    "appId" : "cpu-monitor-electron",
+    "win" : {
+      "target" : ["nsis"],
+      "icon":"src/cpu.ico",
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "nsis":{
+      "installerIcon":"src/cpu.ico",
+      "uninstallerIcon":"src/cpu.ico",
+      "uninstallDisplayName":"CPU Monitor",
+      "licence":"license.txt",
+      "oneClick":false,
+      "allowToChangeInstallationDirectory":true
+    }
   },
   "keywords": [],
   "author": {
@@ -45,6 +62,7 @@
     }
   },
   "dependencies": {
+    "electron-builder": "^22.9.1",
     "electron-squirrel-startup": "^1.0.0",
     "os-utils": "0.0.14"
   },
