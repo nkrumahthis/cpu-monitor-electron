@@ -12,8 +12,9 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
+    width: 1000,
     height: 600,
+    icon: __dirname + '/cpu.ico',
     webPreferences:{
       nodeIntegration: true
     }
@@ -25,14 +26,14 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
-  os.cpuUsage(function(v) {
-    console.log('CPU Usage (%): ' + v*100);
-    mainWindow.webContents.send('cpu', v*100);
-    console.log('Mem Usage (%): ' + os.freememPercentage()*100);
-    mainWindow.webContents.send('mem', os.freememPercentage()*100);
-    console.log('Total Mem (GB): ' + os.totalmem()/1024);
-    mainWindow.webContents.send('total-mem', os.totalmem()/1024);
-  });
+  setInterval(()=>{
+    os.cpuUsage(function(v) {
+      mainWindow.webContents.send('cpu', v*100);
+      mainWindow.webContents.send('mem', os.freememPercentage()*100);
+      mainWindow.webContents.send('total-mem', os.totalmem()/1024);
+    });
+  }, 1000);
+  
 };
 
 // This method will be called when Electron has finished
